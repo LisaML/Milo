@@ -1,7 +1,6 @@
 import string
-
 def get_response(message):
-	stopwords = ['busca','la','el','podrias','por','favor','palabra','de','definicion','definicion','que','es']
+	stopwords = ['reproduce','la','el','podrias','por','favor','cancion','de']
 	men=message
 	tokens= men.split(' ')
 
@@ -35,9 +34,7 @@ def get_response(message):
 		print(tokens)
 		
     
-	respuesta= ("Buscando en google la palabra:  "+ re)
+	respuesta= ("reproduciendo la cancion: "+ re)
 
 	return respuesta
-
-
 

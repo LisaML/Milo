@@ -1,5 +1,5 @@
 
-def get_not_understand():
+def get_not_understand(message):
     """
     This function returns the response "Lo siento, no entiendo lo que dices" when the response
     is not know

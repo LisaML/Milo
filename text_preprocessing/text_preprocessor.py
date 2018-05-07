@@ -38,6 +38,7 @@ class TextPreprocessor():
         token_list = word_tokenize(str(sentence), self.language)
 
         return token_list
+        
 
     def sentence_cleaning(self, tokens):
         '''

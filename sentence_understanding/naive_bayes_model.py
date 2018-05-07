@@ -4,8 +4,9 @@
 from sklearn.naive_bayes import GaussianNB
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn import metrics
-
+from sklearn.ensemble import RandomForestClassifier
 from text_preprocessing.text_preprocessor import TextPreprocessor
+from sklearn.neural_network import MLPClassifier
 
 import logging
 
@@ -34,20 +35,30 @@ def train_model():
     test_feature_vector = count_vectorizer.transform(testing_data)
 
     # model declaration and training
-    naive_bayes_model = GaussianNB()
-    naive_bayes_model.fit(training_feature_vector.toarray(), training_targets)
-
+    #naive_bayes_model = GaussianNB()
+    #naive_bayes_model.fit(training_feature_vector.toarray(), training_targets)
     # model measure
-    test_data_predicted = naive_bayes_model.predict(test_feature_vector.toarray())
+    #test_data_predicted = naive_bayes_model.predict(test_feature_vector.toarray())
+    
+    #modelo randomforest
+    RF= RandomForestClassifier(criterion='entropy')
+    RF.fit(training_feature_vector.toarray(), training_targets)
+    test_data_predicted = RF.predict(test_feature_vector.toarray())
+   
+    #modelo red neuronal
+    #neural_net = MLPClassifier()
+    #neural_net.fit(training_feature_vector.toarray(), training_targets)
+    #test_data_predicted = neural_net.predict(test_feature_vector.toarray())
 
     cm = metrics.confusion_matrix(test_targets, test_data_predicted)
     score = metrics.accuracy_score(test_targets, test_data_predicted)
 
     logger.debug("TRAIN SCORE: %s", score)
+    print(cm)
 
     # TODO: save model
 
-    return naive_bayes_model, count_vectorizer
+    return RF, count_vectorizer
 
 
 def predict_label(message):
@@ -129,6 +140,10 @@ def load_training_data():
         'agradecimientos':{
             'intents':['Gracias', 'Te lo agradezco'],
             'examples': ['Gracias', 'Te lo agradezco']
+        },
+        'cancion':{
+            'intents':['reproduce la cancion','cancion','pon la cancion','musica de '],
+            'examples': ['reproduce la cancion','cancion','pon la cancion','musica de ']
         }
     }
 
